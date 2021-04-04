@@ -291,7 +291,8 @@ void tool_change(const uint8_t new_tool, bool no_move /*=false*/)
                 // 新喷头移回原位置
                 if (DEBUGGING(LEVELING))
                     DEBUG_POS("Move back", destination);
-                do_blocking_move_to(destination, planner.settings.max_feedrate_mm_s[X_AXIS]);
+                // Legodev: should not be needed, at least with cura and can cause trouble
+                //do_blocking_move_to(destination, planner.settings.max_feedrate_mm_s[X_AXIS]);
 
                 // do_pause_e_move(TOOLCHANGE_FIL_RETRACT_LENGTH, 6);
                 // // 等待进丝完成
