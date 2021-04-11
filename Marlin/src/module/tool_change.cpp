@@ -280,12 +280,24 @@ void tool_change(const uint8_t new_tool, bool no_move /*=false*/)
                 // T0: -45 to -30
                 // T1: 330 to 352
                 if (new_tool == 0)
-                {
-                    do_blocking_move_to_x(-30, 20);
+                {   
+                    do_blocking_move_to_x(-10, 100);
+                    do_blocking_move_to_x(-45, 100);
+                    do_blocking_move_to_x(-10, 100);
+                    do_blocking_move_to_x(-45, 100);
+                    do_blocking_move_to_x(-15, 100);
+                    do_blocking_move_to_x(-45, 100);
+                    do_blocking_move_to_x(-30, 50);
                 }
                 else
-                {
-                    do_blocking_move_to_x(330, 20);
+                {   
+                    do_blocking_move_to_x(315, 100);
+                    do_blocking_move_to_x(345, 100);
+                    do_blocking_move_to_x(315, 100);
+                    do_blocking_move_to_x(345, 100);
+                    do_blocking_move_to_x(315, 100);
+                    do_blocking_move_to_x(345, 100);
+                    do_blocking_move_to_x(330, 50);
                 }
 
                 // 新喷头移回原位置
