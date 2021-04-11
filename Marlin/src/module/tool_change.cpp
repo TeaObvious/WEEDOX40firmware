@@ -253,7 +253,7 @@ void tool_change(const uint8_t new_tool, bool no_move /*=false*/)
         // Return to position and lower again
         if (!no_move && IsRunning())
         {
-            if (should_swap && !too_cold)
+            if (should_swap && !too_cold && (toolchange_settings.x40_toolchange_config & 1))
             {
                 // 进丝，长度为刚才回抽长度，TOOLCHANGE_FIL_SWAP_LENGTH
                 do_pause_e_move(toolchange_settings.swap_length, MMM_TO_MMS(toolchange_settings.prime_speed));
@@ -274,29 +274,35 @@ void tool_change(const uint8_t new_tool, bool no_move /*=false*/)
             apply_motion_limits(destination);
 
             // Should the nozzle move back to the old position?
-            if (can_move_away)
+            if (can_move_away && (toolchange_settings.x40_toolchange_config & 1))
             {
                 // 进行喷头擦除
                 // T0: -45 to -30
                 // T1: 330 to 352
                 if (new_tool == 0)
                 {   
-                    do_blocking_move_to_x(-10, 100);
-                    do_blocking_move_to_x(-45, 100);
-                    do_blocking_move_to_x(-10, 100);
-                    do_blocking_move_to_x(-45, 100);
-                    do_blocking_move_to_x(-15, 100);
-                    do_blocking_move_to_x(-45, 100);
+                    if (toolchange_settings.x40_toolchange_config & 2)
+                    {
+                      do_blocking_move_to_x(-10, 100);
+                      do_blocking_move_to_x(-45, 100);
+                      do_blocking_move_to_x(-10, 100);
+                      do_blocking_move_to_x(-45, 100);
+                      do_blocking_move_to_x(-15, 100);
+                      do_blocking_move_to_x(-45, 100);
+                    }
                     do_blocking_move_to_x(-30, 50);
                 }
                 else
                 {   
-                    do_blocking_move_to_x(315, 100);
-                    do_blocking_move_to_x(345, 100);
-                    do_blocking_move_to_x(315, 100);
-                    do_blocking_move_to_x(345, 100);
-                    do_blocking_move_to_x(315, 100);
-                    do_blocking_move_to_x(345, 100);
+                    if (toolchange_settings.x40_toolchange_config & 2)
+                    {
+                      do_blocking_move_to_x(315, 100);
+                      do_blocking_move_to_x(345, 100);
+                      do_blocking_move_to_x(315, 100);
+                      do_blocking_move_to_x(345, 100);
+                      do_blocking_move_to_x(315, 100);
+                      do_blocking_move_to_x(345, 100);
+                    }
                     do_blocking_move_to_x(330, 50);
                 }
 
