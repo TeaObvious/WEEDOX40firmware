@@ -256,9 +256,9 @@ void tool_change(const uint8_t new_tool, bool no_move /*=false*/)
             if (should_swap && !too_cold)
             {
                 // 进丝，长度为刚才回抽长度，TOOLCHANGE_FIL_SWAP_LENGTH
-                do_pause_e_move(toolchange_settings.swap_length, MMM_TO_MMS(toolchange_settings.prime_speed));
+                //OK do_pause_e_move(toolchange_settings.swap_length, MMM_TO_MMS(toolchange_settings.prime_speed));
                 // 继续进丝，长度为，TOOLCHANGE_FIL_EXTRA_PRIME
-                do_pause_e_move(toolchange_settings.extra_prime, 6);
+                //OK do_pause_e_move(toolchange_settings.extra_prime, 6);
                 // 退丝，长度为，TOOLCHANGE_FIL_RETRACT_LENGTH
                 do_pause_e_move(-TOOLCHANGE_FIL_RETRACT_LENGTH, 6);
                 // 等待进丝完成
@@ -281,20 +281,12 @@ void tool_change(const uint8_t new_tool, bool no_move /*=false*/)
                 // T1: 330 to 352
                 if (new_tool == 0)
                 {   
-                    do_blocking_move_to_x(-10, 100);
-                    do_blocking_move_to_x(-45, 100);
-                    do_blocking_move_to_x(-10, 100);
-                    do_blocking_move_to_x(-45, 100);
                     do_blocking_move_to_x(-15, 100);
                     do_blocking_move_to_x(-45, 100);
                     do_blocking_move_to_x(-30, 50);
                 }
                 else
                 {   
-                    do_blocking_move_to_x(315, 100);
-                    do_blocking_move_to_x(345, 100);
-                    do_blocking_move_to_x(315, 100);
-                    do_blocking_move_to_x(345, 100);
                     do_blocking_move_to_x(315, 100);
                     do_blocking_move_to_x(345, 100);
                     do_blocking_move_to_x(330, 50);
